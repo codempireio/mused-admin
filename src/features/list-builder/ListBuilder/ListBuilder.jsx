@@ -1,35 +1,56 @@
 import React, { Component } from 'react';
-import { Container,  Row, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
-import ListBuilderItem from "./ListBuilderItem"
+import { Container,  Row, Col, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import ListBuilderItem from "./ListBuilderItem";
+import SelectedIDs from "./SelectedIDs";
+
+const theme = require('../theme.css');
 
 export default class ListBuilder extends Component {
     state = {
-        dropdownOpen: false
+        dropdownOpen: false,
     };
 
     render() {
-        const { products, categories } = this.props;
+        const { products, categories, listOfIds, removeIdFromList, userProfile, logout } = this.props;
 
         return (
-            <Container>
-                <Row>
-                    <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-                        <DropdownToggle caret>
-                            Categories
-                        </DropdownToggle>
-                        <DropdownMenu>
-                        { categories.map((category, i) => (
-                            <DropdownItem
-                                key={i}>
-                                { category }
-                            </DropdownItem>))}
-                        </DropdownMenu>
-                    </Dropdown>
-                </Row>
-                <Row>
-                    { this._renderListOgProducts(products) }
-                </Row>
-            </Container>
+            <div>
+                <Container style={{width: '80%', float: 'left'}}>
+                    <Row className={theme.selectWrapper}>
+                        <Col  xs='6'>
+                            <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+                                <DropdownToggle caret>
+                                    Categories
+                                </DropdownToggle>
+                                <DropdownMenu>
+                                    { categories.map((category, i) => (
+                                        <DropdownItem
+                                            onClick={() => this.onCategorySelected(category)}
+                                            key={i}>
+                                            { category }
+                                        </DropdownItem>))}
+                                </DropdownMenu>
+                            </Dropdown>
+                        </Col>
+                        <Col  xs="6" className={theme.logOutWrapper}>
+                            <p>
+                                {`User: ${userProfile.email}`}
+                                <span className={theme.logOut}
+                                    onClick={logout}>logout</span>
+                            </p>
+                        </Col>
+                    </Row>
+                    <Row className={theme.listWrapper}>
+                        { this._renderListOgProducts(products) }
+                    </Row>
+                </Container>
+                <Container style={{width: '20%', float: 'right'}}>
+                    <SelectedIDs
+                        ids={listOfIds}
+                        removeId={removeIdFromList}
+                    />
+                </Container>
+            </div>
         )
     }
 
@@ -40,8 +61,13 @@ export default class ListBuilder extends Component {
             <ListBuilderItem
                 key={i}
                 product={product}
+                addId={this.props.addIdToList}
             />
         ));
+    };
+
+    onCategorySelected = category => {
+        this.props.filterProducts(category);
     };
 
     toggle = () => {
@@ -49,4 +75,4 @@ export default class ListBuilder extends Component {
             dropdownOpen: !this.state.dropdownOpen
         });
     }
- }
+};

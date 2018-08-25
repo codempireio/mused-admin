@@ -17,12 +17,18 @@ function CollectionHOC(ListBuilder) {
         }
 
         render() {
-            const { root: { products } } = this.props;
-            const { listOfProducts, allCategories } = products;
+            const { root: { products }, userProfile, logout } = this.props;
+            const { listOfProducts, allCategories, listOfIds, filterProductsByCategory, addIdToList, removeIdFromList } = products;
 
             return <ListBuilder
+                userProfile={userProfile}
+                logout={logout}
                 products={listOfProducts}
                 categories={allCategories}
+                filterProducts={filterProductsByCategory}
+                addIdToList={addIdToList}
+                removeIdFromList={removeIdFromList}
+                listOfIds={listOfIds}
             />
         }
 

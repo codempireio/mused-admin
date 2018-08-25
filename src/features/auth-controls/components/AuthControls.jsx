@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { loginEmailPassword } from '../../../services'
 
-import theme from '../theme';
+import theme from '../theme.css';
 
 import { Container,  Row, Col, Button, Form, FormGroup, Label, Input, Alert } from 'reactstrap';
 
@@ -28,7 +28,7 @@ export default class AuthControls extends Component {
 
     render() {
         return (
-            <Container>
+            <Container className={theme.loginWrapper}>
                 <Row>
                     <Col xs="6">
                         <Form>
@@ -56,7 +56,7 @@ export default class AuthControls extends Component {
                                 { this.state.errorMsg }
                             </Alert> }
 
-                            <Button
+                            <Button outline color="primary"
                                 onClick={this._handleLogin}
                             >
                                 Log In

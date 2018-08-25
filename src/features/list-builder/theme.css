@@ -1,0 +1,50 @@
+.selectWrapper{
+ padding: 12px 36px;
+}
+
+
+.logOutWrapper{
+  text-align: right;
+}
+.logOutWrapper .logOut{
+ margin-left: 8px;
+ cursor: pointer;
+ text-decoration: underline;
+ color: #007bff;
+}
+
+
+.listWrapper{
+ background-color: #eee;
+ height: 100%;
+ overflow: scroll;
+}
+
+
+.itemWrapper{
+ padding: 3px 6px;
+ text-align: center;
+}
+.itemWrapper img{
+ width: 100px;
+ height: 100px;
+ margin-bottom: 10px;
+}
+.itemWrapper button{
+ font-size: 12px;
+ padding: 0 4px;
+}
+
+
+.selectedIDsWrapper{
+}
+.selectedIDsWrapper h3{
+ margin-top: 12px;
+}
+.selectedIDsWrapper li{
+ color: #6c757d;
+}
+.selectedIDsWrapper li span{
+ color: #007bff;
+ font-weight: bold;
+}

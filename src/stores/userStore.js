@@ -1,4 +1,4 @@
-import { observable, action } from 'mobx';
+import { observable, action, computed } from 'mobx';
 
 import { logout } from '../services';
 
@@ -9,15 +9,6 @@ export default class ObservableStore {
     @observable id = null;
     @observable profile = null;
 
-    @action
-    logout = () => {
-        logout().then(() => {
-            console.log(`user ${this.userProfile.name} logged out`);
-            this.id = null;
-            this.profile = null;
-            this.userDetails = null;
-        });
-    };
 
     get userProfile() {
         return this.profile;
@@ -33,6 +24,15 @@ export default class ObservableStore {
 
         this.id = userAuthId;
         this.profile = userProfile;
-    }
+    };
+
+    @action
+    logout = () => {
+        logout().then(() => {
+            console.log(`user ${this.userProfile.name} logged out`);
+            this.id = null;
+            this.profile = null;
+        });
+    };
 
 }

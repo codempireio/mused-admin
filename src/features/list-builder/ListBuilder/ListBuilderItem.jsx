@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import { Col, Button } from 'reactstrap';
-import theme from '../theme';
 
+const theme = require('../theme.css');
 
 export default class ListBuilderItem extends Component {
     render() {
-        const { product } = this.props;
+        const { product, addId } = this.props;
         return (
-            <Col xs="4">
+            <Col xs="3" className={theme.itemWrapper}>
                 <img src={product.image} width="50" height="50" />
-                <Button outline color="secondary">
-                    {`Add #${product.id}`}
+                <Button outline color="secondary"
+                    onClick={() => addId(product.id)}>
+                        {`Add #${product.id}`}
                 </Button>
             </Col>
         )
