@@ -1,12 +1,9 @@
 import {
     Stitch,
-    StitchAppClient,
-    AnonymousCredential,
-    FacebookCredential,
+    UserPasswordCredential,
 } from 'mongodb-stitch-browser-sdk';
 
-const clientAppId = "project0-ttfvv";
-
+const clientAppId = "musedadmin-vcmqy";
 
 class Client{
     constructor(){
@@ -19,10 +16,13 @@ class Client{
         const that = this;
 
         return new Promise(function(resolve, reject) {
-            Stitch.initializeDefaultAppClient(clientId).then(client => {
-                that.setClient(client);
+            try {
+                const stitchClient = Stitch.initializeDefaultAppClient(clientId);
+                that.setClient(stitchClient);
                 resolve();
-            }, reject)
+            } catch (err) {
+                reject(err)
+            }
         })
     };
 
@@ -34,13 +34,21 @@ class Client{
         return this.clientInst;
     };
 
-    logInAnon(client) {
-        return client.auth.loginWithCredential(new AnonymousCredential())
-    }
+    emailPasswordAuth = async function (email, password) {
+        const client = this.clientInst;
 
-    loginViaFBProvider(token) {
-        return this.clientInst.auth.loginWithCredential(new FacebookCredential(token))
-    };
+        if (!client.auth.isLoggedIn) {
+            // Log the user in
+            const credential = new UserPasswordCredential(email, password);
+            await client.auth.loginWithCredential(credential);
+        }
+        const { user: { id, profile } } = client.auth;
+
+        return {
+            userAuthId: id,
+            userProfile: profile.data,
+        };
+    }
 }
 
 const client = new Client();
@@ -51,14 +59,5 @@ export const initClient = () => {
 
 export const getClient = () => client.getClient();
 
-export const login = (type, token) => {
-    switch (type) {
-        case 'facebook':
-            return client.loginViaFBProvider(token);
-        case 'anonymous':
-            return client.logInAnon(client.clientInst);
-        default:
-            return null;
-    }
-};
+export const login = async (email, password) => await client.emailPasswordAuth(email, password);
 

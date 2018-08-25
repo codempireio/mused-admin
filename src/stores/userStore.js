@@ -1,6 +1,6 @@
 import { observable, action } from 'mobx';
 
-import { getUserDetails, logout } from '../services';
+import { logout } from '../services';
 
 export default class ObservableStore {
 
@@ -8,7 +8,6 @@ export default class ObservableStore {
 
     @observable id = null;
     @observable profile = null;
-    @observable userDetails = null;
 
     @action
     logout = () => {
@@ -24,25 +23,16 @@ export default class ObservableStore {
         return this.profile;
     };
 
-    get userId() {
+    get authId() {
         return this.id;
     }
 
     @action
-    setUserDetails = async (userId, userProfile) => {
-        const { email } = userProfile;
-        const userData = await getUserDetails(email);
-
-        this.setUser({ userId, userData });
-    };
-
-    @action
     setUser = (user) => {
-        const { userId, userData: { profile, details } } = user;
+        const { userAuthId, userProfile } = user;
 
-        this.id = userId;
-        this.profile = profile;
-        this.userDetails = details;
+        this.id = userAuthId;
+        this.profile = userProfile;
     }
 
 }

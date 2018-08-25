@@ -1,59 +1,30 @@
 import React, { Component } from 'react';
+import { loginEmailPassword } from '../../../services'
+
 import theme from '../theme';
-import {
-    loginViaFBProvider,
-    updateUser } from '../../../services'
 
 import { Container,  Row, Col, Button, Form, FormGroup, Label, Input, Alert } from 'reactstrap';
 
 export default class AuthControls extends Component {
     state = {
-        userData: null,
+        email: '',
+        password: '',
         errorMsg: null
     };
 
     _handleLogin = async () => {
         const { setUser } = this.props;
-        const testUser = {
-            userId: 'test-id',
-            userData: {
-                profile: {},
-                details: {}
-            }
-        };
-        setUser(testUser)
-        // let authData;
-        // try {
-        //      authData = await Facebook.logInWithReadPermissionsAsync('2127807207434704', {
-        //         permissions: ['public_profile', 'email'],
-        //         behavior: this.isAStandaloneApp() ? 'native' : 'web'
-        //     });
-        // } catch (err) {
-        //     console.error(err)
-        // }
-        // const { type, token } = authData;
-        //
-        // if (type === 'success') {
-        //     // login into Stitch app using FB token
-        //     loginViaFBProvider(token).then((data: any) => {
-        //         const userId = data.auth.authInfo.userId;
-        //         const userProfile = data.auth.authInfo.userProfile.data;
-        //
-        //         this._updateUser(userId, userProfile);
-        //     }, (error: Error) => this.setState({errorMsg: error.message}))
-        // } else {
-        //     console.error(`Facebook.logInWithReadPermissionsAsync: ${type}`);
-        // }
-    };
+        const { email, password } = this.state;
 
-    // _updateUser = (userId, userProfile) => {
-    //     updateUser(userProfile).then(
-    //         () => {
-    //             this.props.setUserDetails(userId, userProfile)
-    //         },
-    //         error => console.log(error)
-    //     );
-    // };
+        // login into Stitch app
+        try {
+            const user = await loginEmailPassword(email, password);
+            console.log('User:', user);
+            setUser(user)
+        } catch (error) {
+            this.setState({errorMsg: error.message})
+        }
+    };
 
     render() {
         return (
@@ -62,12 +33,24 @@ export default class AuthControls extends Component {
                     <Col xs="6">
                         <Form>
                             <FormGroup>
-                                <Label for="exampleEmail">Email</Label>
-                                <Input type="email" name="email" id="exampleEmail" placeholder="with a placeholder" />
+                                <Label for="inputEmail">Email</Label>
+                                <Input
+                                    value={this.state.email}
+                                    onChange={this.handleEmailChange}
+                                    id="inputEmail"
+                                    type="email"
+                                    name="email"
+                                    placeholder="Your Email" />
                             </FormGroup>
                             <FormGroup>
                                 <Label for="examplePassword">Password</Label>
-                                <Input type="password" name="password" id="examplePassword" placeholder="password placeholder" />
+                                <Input
+                                    value={this.state.password}
+                                    onChange={this.handlePasswordChange}
+                                    id="examplePassword"
+                                    type="password"
+                                    name="password"
+                                    placeholder="Your Password" />
                             </FormGroup>
                             { this.state.errorMsg && <Alert color="danger">
                                 { this.state.errorMsg }
@@ -84,4 +67,7 @@ export default class AuthControls extends Component {
             </Container>
         )
     };
+
+    handleEmailChange = (event) => this.setState({email: event.target.value});
+    handlePasswordChange = (event) => this.setState({password: event.target.value});
 }
