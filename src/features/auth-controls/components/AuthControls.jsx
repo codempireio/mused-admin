@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { loginEmailPassword } from '../../../services'
-
+import { Container,  Row, Col, Button, Form, FormGroup, Label, Input, Alert } from 'reactstrap';
 import theme from '../theme.css';
 
-import { Container,  Row, Col, Button, Form, FormGroup, Label, Input, Alert } from 'reactstrap';
+
 
 export default class AuthControls extends Component {
     state = {
@@ -43,11 +43,11 @@ export default class AuthControls extends Component {
                                     placeholder="Your Email" />
                             </FormGroup>
                             <FormGroup>
-                                <Label for="examplePassword">Password</Label>
+                                <Label for="inputPassword">Password</Label>
                                 <Input
                                     value={this.state.password}
                                     onChange={this.handlePasswordChange}
-                                    id="examplePassword"
+                                    id="inputPassword"
                                     type="password"
                                     name="password"
                                     placeholder="Your Password" />

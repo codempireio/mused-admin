@@ -15,7 +15,7 @@
 
 
 .listWrapper{
- background-color: #eee;
+ background-color: #fff;
  height: 100%;
  overflow: scroll;
 }
@@ -43,8 +43,9 @@
 }
 .selectedIDsWrapper li{
  color: #6c757d;
+ user-select: none;
 }
-.selectedIDsWrapper li span{
- color: #007bff;
- font-weight: bold;
+.selectedIDsWrapper li button{
+ font-size: 12px;
+ padding: 0 4px;
 }

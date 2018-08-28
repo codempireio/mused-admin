@@ -4,7 +4,7 @@ import { ROOT_STORE } from '../../../stores';
 import { getAuthUserData } from '../../../services';
 
 import AuthControls from './AuthControls';
-import { ListBuilder } from '../../../features/list-builder';
+import { Main } from '../../../features/main';
 
 function AuthControlsHOC(AuthControls) {
     @inject(ROOT_STORE)
@@ -21,7 +21,7 @@ function AuthControlsHOC(AuthControls) {
         }
         render() {
             const { root: { user } } = this.props;
-            const { setUser, authId, userProfile, logout } = user;
+            const { setUser, authId } = user;
 
             // user Auth ID
             if (!authId) {
@@ -31,10 +31,7 @@ function AuthControlsHOC(AuthControls) {
             }
 
             return (
-                <ListBuilder
-                    userProfile={userProfile}
-                    logout={logout}
-                />
+                <Main />
             )
       }
     }

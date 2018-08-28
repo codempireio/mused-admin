@@ -1,0 +1,13 @@
+
+
+.listWrapper{
+ background-color: #eee;
+ height: 100%;
+ overflow: scroll;
+}
+
+
+.itemWrapper{
+ padding: 3px 6px;
+ text-align: center;
+}
