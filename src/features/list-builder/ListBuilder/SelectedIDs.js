@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import { ListGroup, ListGroupItem, Button } from 'reactstrap';
 
@@ -16,13 +15,10 @@ export default class SelectedIDs extends Component {
                 <ListGroup>
                     { ids.map((id, i) => (
                         <ListGroupItem key={i}>
-                            {`#${id}  `}
+                            <span>{id}</span>
                             <Button outline onClick={() => removeId(id)}>
-                                Remove
+                                X
                             </Button>
-                            <CopyToClipboard text={id}>
-                                <Button outline>Copy</Button>
-                            </CopyToClipboard>
                         </ListGroupItem>
                     )) }
                 </ListGroup>

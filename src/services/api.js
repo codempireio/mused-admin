@@ -23,4 +23,7 @@ export const getAllProducts = () => {
     return client.callFunction("getProducts");
 };
 
-
+export const getAllPosts = () => {
+    const client = getClient();
+    return client.callFunction("getPosts");
+};

@@ -30,7 +30,7 @@ export default class Posts extends Component {
     };
 
     render() {
-        const { posts, getPostData } = this.props;
+        const { posts, getPostData, setPostData, addNewPost } = this.props;
 
         return (
             <div className={theme.listWrapper}>
@@ -54,6 +54,8 @@ export default class Posts extends Component {
                     onClose={this.cancel}
                     postId={this.state.currentPost}
                     getPostData={getPostData}
+                    setPostData={setPostData}
+                    addNewPost={addNewPost}
                 />
             </div>
         )

@@ -43,9 +43,9 @@
 }
 .selectedIDsWrapper li{
  color: #6c757d;
- user-select: none;
 }
 .selectedIDsWrapper li button{
  font-size: 12px;
+ margin-left: 4px;
  padding: 0 4px;
 }

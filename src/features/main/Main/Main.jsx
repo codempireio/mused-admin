@@ -7,7 +7,7 @@ import { Posts } from "../../posts";
 
 export default class Main extends Component {
     state = {
-        activeTab: 'products'
+        activeTab: 'posts'
     };
 
     render() {

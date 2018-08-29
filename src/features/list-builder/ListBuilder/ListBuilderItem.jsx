@@ -11,7 +11,7 @@ export default class ListBuilderItem extends Component {
                 <img src={product.image} width="50" height="50" />
                 <Button outline color="secondary"
                     onClick={() => addId(product.id)}>
-                        {`Add #${product.id}`}
+                        {`Add ${product.id}`}
                 </Button>
             </Col>
         )

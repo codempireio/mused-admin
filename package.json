@@ -14,7 +14,6 @@
     "mobx-react": "^5.2.5",
     "mongodb-stitch-browser-sdk": "^4.0.13",
     "react": "^16.4.2",
-    "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^16.4.2",
     "reactstrap": "^6.4.0"
   },

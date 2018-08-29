@@ -13,16 +13,18 @@ function CollectionHOC(Posts) {
             const { root: { posts } } = this.props;
             const { getAllPosts } = posts;
 
-            // getAllPosts();
+            getAllPosts();
         }
 
         render() {
             const { root: { posts } } = this.props;
-            const { listOfPosts, getPostData } = posts;
+            const { listOfPosts, getPostData, setPostData, addNewPost } = posts;
 
             return <Posts
                 posts={listOfPosts}
                 getPostData={getPostData}
+                setPostData={setPostData}
+                addNewPost={addNewPost}
             />
         }
 
