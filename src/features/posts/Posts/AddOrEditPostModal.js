@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Row, Col, Button, Form, FormGroup, Label, Input, Alert, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { isNumber } from '../../../services/utils'
+
 const theme = require('../theme.css');
 
 const types = {
@@ -23,6 +25,7 @@ const SLOTS = [
 
 const getSlots = slots => {
     const s1 = {};
+    if (!slots) return s1;
     slots.forEach((slot, i) => {
         s1[`slot${i + 1}Product`] = slot.productId;
         s1[`slot${i + 1}Alts`] = slot.alternatives.join('\n');
@@ -81,26 +84,24 @@ export default class AddOrEditPostModal extends Component {
     savePost = () => {
         const { onClose, setPostData, addNewPost, postId } = this.props;
         const post = {
-            postId,
             authorName: this.state.authorName,
             authorProfilePhoto: this.state.authorProfilePhotoURL,
             inspirationalImage: this.state.inspirationalImageURL,
             backgroundImage: this.state.backgroundImageURL,
-            slot1Product: this.state.slot1Product,
-            slot2Product: this.state.slot2Product,
-            slot3Product: this.state.slot3Product,
-            slot4Product: this.state.slot4Product,
-            slot5Product: this.state.slot5Product,
-
-            slot1Alts: this.state.slot1Alts,
-            slot2Alts: this.state.slot2Alts,
-            slot3Alts: this.state.slot3Alts,
-            slot4Alts: this.state.slot4Alts,
-            slot5Alts: this.state.slot5Alts,
+            slots: this.setSlots()
         };
-        this.type === types.edit ?
-            setPostData(post) : addNewPost(post);
+
+        this.type === types.edit ? setPostData({postId, ...post}) : addNewPost(post);
         onClose()
+    };
+
+    setSlots = () => {
+        return SLOTS.map((slot, i) => {
+            return this.state[`slot${i + 1}Product`] ? {
+                productId: this.state[`slot${i + 1}Product`],
+                alternatives: this.state[`slot${i + 1}Alts`] ? this.state[`slot${i + 1}Alts`].split('\n') : []
+            } : null;
+        }).filter(Boolean);
     };
 
     render() {
@@ -209,6 +210,12 @@ export default class AddOrEditPostModal extends Component {
     handleInspirationalImage = (event) => this.setState({inspirationalImageURL: event.target.value});
     handleBackgroundImage = (event) => this.setState({backgroundImageURL: event.target.value});
 
-    handleSlotProduct = (slot, value) => this.setState({[`slot${slot}Product`]: value});
-    handleSlotAlts = (slot, value) => this.setState({[`slot${slot}Alts`]: value});
+    handleSlotProduct = (slot, value) => {
+        (isNumber(value) || value === '') &&
+            this.setState({[`slot${slot}Product`]: value});
+    };
+    handleSlotAlts = (slot, value) => {
+        (isNumber(value.replace(/\n/g,'')) || value === '') &&
+            this.setState({[`slot${slot}Alts`]: value});
+    }
 }

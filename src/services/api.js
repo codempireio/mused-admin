@@ -27,3 +27,13 @@ export const getAllPosts = () => {
     const client = getClient();
     return client.callFunction("getPosts");
 };
+
+export const addPost = (post) => {
+    const client = getClient();
+    return client.callFunction("addPost", [ post ]);
+};
+
+export const updatePost = (post) => {
+    const client = getClient();
+    return client.callFunction("updatePost", [ post ]);
+};
