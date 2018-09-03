@@ -5,26 +5,7 @@ import { getAllPosts, addPost, updatePost } from '../services';
 export default class ObservableStore {
     constructor(root) {}
 
-    @observable posts = [
-        {
-            postId: 1,
-            authorName: 'Ivan Ivanov',
-            authorProfilePhoto: 'https://uploads-ssl.webflow.com/5a2841982551540001970010/5b3f97762cfda077fea09a33_prof.jpg',
-            inspirationalImage: '',
-            backgroundImage: '',
-
-            slot1Product: '',
-            slot2Product: '',
-            slot3Product: '',
-            slot4Product: '',
-            slot5Product: '',
-
-            slot1Alts: '',
-            slot2Alts: '',
-            slot3Alts: '',
-            slot4Alts: '',
-            slot5Alts: '',
-        }];
+    @observable posts = [];
 
     get listOfPosts (){
         return this.posts;
@@ -39,7 +20,7 @@ export default class ObservableStore {
     setPostData = async (post) => {
         const newPost = await updatePost(post);
         // TODO: check new post and refactor this logic
-        console.log(newPost);
+        // console.log(newPost);
 
         const index = _.findIndex(this.posts, {postId: post.postId});
         this.posts.splice(index, 1, _.merge(this.posts[index], post));

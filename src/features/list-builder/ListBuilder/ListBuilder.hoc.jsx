@@ -19,7 +19,10 @@ function CollectionHOC(ListBuilder) {
         render() {
             const { root: { products, user } } = this.props;
             const { userProfile, logout } = user;
-            const { listOfProducts, allCategories, listOfIds, filterProductsByCategory, addIdToList, removeIdFromList } = products;
+            const {
+                listOfProducts, allCategories, listOfIds,
+                filterProductsByCategory, addIdToList, removeIdFromList,
+                paginate} = products;
 
             return <ListBuilder
                 userProfile={userProfile}
@@ -30,6 +33,7 @@ function CollectionHOC(ListBuilder) {
                 addIdToList={addIdToList}
                 removeIdFromList={removeIdFromList}
                 listOfIds={listOfIds}
+                paginate={paginate}
             />
         }
 

@@ -16,7 +16,7 @@
 
 .listWrapper{
  background-color: #fff;
- height: 100%;
+ height: calc(100% - 160px);
  overflow: scroll;
 }
 
