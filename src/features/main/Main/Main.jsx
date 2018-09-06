@@ -19,7 +19,7 @@ export default class Main extends Component {
                             className={classNames({ active: this.state.activeTab === 'products' })}
                             onClick={() => { this.toggleTab('products'); }}
                         >
-                            List builder
+                            List of Products
                         </NavLink>
                     </NavItem>
                     <NavItem>

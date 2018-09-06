@@ -20,20 +20,19 @@ function CollectionHOC(ListBuilder) {
             const { root: { products, user } } = this.props;
             const { userProfile, logout } = user;
             const {
-                listOfProducts, allCategories, listOfIds,
-                filterProductsByCategory, addIdToList, removeIdFromList,
-                paginate} = products;
+                    listOfProducts, allCategories, listOfIds,
+                    setCategory, addIdToList, removeIdFromList
+                } = products;
 
             return <ListBuilder
                 userProfile={userProfile}
                 logout={logout}
                 products={listOfProducts}
                 categories={allCategories}
-                filterProducts={filterProductsByCategory}
                 addIdToList={addIdToList}
                 removeIdFromList={removeIdFromList}
                 listOfIds={listOfIds}
-                paginate={paginate}
+                setCategory={setCategory}
             />
         }
 

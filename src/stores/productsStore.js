@@ -8,16 +8,20 @@ const CHUNK_SIZE = 100;
 export default class ObservableStore {
     constructor(root) {}
 
+    allProducts = [];
     @observable products = [];
     @observable categories = [];
+    // @observable category = null;
     @observable pagination = 0;
     @observable selectedIds = [];
 
     @computed get listOfProducts (){
-
         return this.products.slice(
             this.pagination*CHUNK_SIZE,
             (this.pagination+1)*CHUNK_SIZE);
+    }
+    @computed get paginationLength (){
+        return parseInt(this.products.length / CHUNK_SIZE);
     }
     get allCategories (){
         return this.categories;
@@ -42,9 +46,19 @@ export default class ObservableStore {
         return this.pagination === 0 ? 0 : this.pagination -= 1;
     };
 
-    @action
     filterProductsByCategory = (category) => {
-        this.products = this.allProducts.filter(product => product.category === category);
+        const products = category
+            ? this.allProducts.filter(product => product.category === category)
+            : this.allProducts;
+
+        this.products = products;
+    };
+
+    @action
+    setCategory = (category) => {
+        // this.category = category;
+        this.pagination = 0;
+        this.filterProductsByCategory(category);
     };
 
     @action

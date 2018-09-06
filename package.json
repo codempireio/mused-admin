@@ -15,6 +15,7 @@
     "mongodb-stitch-browser-sdk": "^4.0.13",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
+    "react-paginate": "^5.2.4",
     "reactstrap": "^6.4.0"
   },
   "devDependencies": {

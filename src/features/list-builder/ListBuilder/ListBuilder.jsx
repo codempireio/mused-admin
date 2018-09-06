@@ -5,17 +5,18 @@ import {
 } from 'reactstrap';
 import ListBuilderItem from "./ListBuilderItem";
 import SelectedIDs from "./SelectedIDs";
-import Pagination from "./Pagination";
+import { Pagination } from "../../pagination";
 
 const theme = require('../theme.css');
 
 export default class ListBuilder extends Component {
     state = {
         dropdownOpen: false,
+        currentCategory: null
     };
 
     render() {
-        const { products, categories, listOfIds, removeIdFromList, userProfile, paginate, logout } = this.props;
+        const { products, categories, listOfIds, removeIdFromList, userProfile, logout } = this.props;
 
         return (
             <div>
@@ -24,13 +25,19 @@ export default class ListBuilder extends Component {
                         <Col  xs='6'>
                             <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
                                 <DropdownToggle caret>
-                                    Categories
+                                    { this.state.currentCategory || "Categories" }
                                 </DropdownToggle>
                                 <DropdownMenu>
+                                    { this.state.currentCategory &&
+                                        <DropdownItem
+                                            onClick={() => this.onCategorySelected(null)}
+                                            key={0}>
+                                            { "All" }
+                                        </DropdownItem> }
                                     { categories.map((category, i) => (
                                         <DropdownItem
                                             onClick={() => this.onCategorySelected(category)}
-                                            key={i}>
+                                            key={i+1}>
                                             { category }
                                         </DropdownItem>))}
                                 </DropdownMenu>
@@ -47,10 +54,8 @@ export default class ListBuilder extends Component {
                     <Row className={theme.listWrapper}>
                         { this._renderListOfProducts(products) }
                     </Row>
-                    <Row> <Col  xs="12">
-                        <Pagination
-                            paginate={paginate}
-                        />
+                    <Row><Col  xs="12">
+                        <Pagination />
                     </Col></Row>
                 </Container>
                 <Container style={{width: '20%', float: 'right'}}>
@@ -76,7 +81,10 @@ export default class ListBuilder extends Component {
     };
 
     onCategorySelected = category => {
-        this.props.filterProducts(category);
+        if (category === this.state.currentCategory) return;
+
+        this.props.setCategory(category);
+        this.setState({currentCategory: category})
     };
 
     toggle = () => {

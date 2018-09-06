@@ -16,7 +16,7 @@
 
 .listWrapper{
  background-color: #fff;
- height: calc(100% - 160px);
+ height: calc(100% - 175px);
  overflow: scroll;
 }
 
@@ -25,10 +25,16 @@
  padding: 3px 6px;
  text-align: center;
 }
-.itemWrapper img{
- width: 100px;
- height: 100px;
+.imageHolder{
+ width: 100%;
+ height: 120px;
+ margin-top: 20px;
  margin-bottom: 10px;
+}
+.imageHolder img{
+ width: 100%;
+ height: 100%;
+ object-fit: contain;
 }
 .itemWrapper button{
  font-size: 12px;
