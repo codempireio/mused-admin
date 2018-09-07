@@ -9,7 +9,6 @@ import { Main } from '../../../features/main';
 function AuthControlsHOC(AuthControls) {
     @inject(ROOT_STORE)
 
-
     @observer
     class NewComponent extends Component {
         componentDidMount() {
@@ -30,10 +29,9 @@ function AuthControlsHOC(AuthControls) {
                 />
             }
 
-            return (
-                <Main />
-            )
-      }
+            return <Main />;
+
+        }
     }
     return NewComponent;
 }

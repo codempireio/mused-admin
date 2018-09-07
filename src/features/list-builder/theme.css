@@ -1,22 +1,11 @@
 .selectWrapper{
- padding: 12px 36px;
-}
-
-
-.logOutWrapper{
-  text-align: right;
-}
-.logOutWrapper .logOut{
- margin-left: 8px;
- cursor: pointer;
- text-decoration: underline;
- color: #007bff;
+ padding: 12px 0;
 }
 
 
 .listWrapper{
  background-color: #fff;
- height: calc(100% - 175px);
+ height: calc(100% - 135px);
  overflow: scroll;
 }
 

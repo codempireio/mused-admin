@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
-import { inject, observer } from 'mobx-react';
-import { ROOT_STORE } from "../../../stores";
+// import { inject, observer } from 'mobx-react';
+// import { ROOT_STORE } from "../../../stores";
 
 import Main from './Main';
 
-function CollectionHOC(Main) {
-    @inject(ROOT_STORE)
+function MainHOC(Main) {
+    // @inject(ROOT_STORE)
 
-    @observer
+    // @observer
     class NewComp extends Component {
+
         render() {
             return <Main />
         }
@@ -17,4 +18,4 @@ function CollectionHOC(Main) {
     return NewComp;
 }
 
-export default CollectionHOC(Main);
+export default MainHOC(Main);

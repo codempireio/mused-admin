@@ -1,6 +1,7 @@
 
 .paginationWrapper {
  margin-top: 15px;
+ margin-left: -15px;
 }
 .pagination {
  display: inline-block;

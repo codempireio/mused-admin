@@ -1,0 +1,12 @@
+
+.logOutWrapper{
+    width: 100%;
+    text-align: right;
+}
+
+.logOut{
+    margin-left: 8px;
+    cursor: pointer;
+    text-decoration: underline;
+    color: #007bff;
+}

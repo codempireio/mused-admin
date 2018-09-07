@@ -16,49 +16,40 @@ export default class ListBuilder extends Component {
     };
 
     render() {
-        const { products, categories, listOfIds, removeIdFromList, userProfile, logout } = this.props;
+        const { products, categories, listOfIds, removeIdFromList } = this.props;
 
         return (
             <div>
                 <Container style={{width: '80%', float: 'left'}}>
-                    <Row className={theme.selectWrapper}>
-                        <Col  xs='6'>
-                            <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-                                <DropdownToggle caret>
-                                    { this.state.currentCategory || "Categories" }
-                                </DropdownToggle>
-                                <DropdownMenu>
-                                    { this.state.currentCategory &&
-                                        <DropdownItem
-                                            onClick={() => this.onCategorySelected(null)}
-                                            key={0}>
-                                            { "All" }
-                                        </DropdownItem> }
-                                    { categories.map((category, i) => (
-                                        <DropdownItem
-                                            onClick={() => this.onCategorySelected(category)}
-                                            key={i+1}>
-                                            { category }
-                                        </DropdownItem>))}
-                                </DropdownMenu>
-                            </Dropdown>
-                        </Col>
-                        <Col  xs="6" className={theme.logOutWrapper}>
-                            <p>
-                                {`User: ${userProfile.email}`}
-                                <span className={theme.logOut}
-                                    onClick={logout}>logout</span>
-                            </p>
+                    <Row>
+                        <Col  xs='12'>
+                            <Pagination />
                         </Col>
                     </Row>
                     <Row className={theme.listWrapper}>
                         { this._renderListOfProducts(products) }
                     </Row>
-                    <Row><Col  xs="12">
-                        <Pagination />
-                    </Col></Row>
                 </Container>
                 <Container style={{width: '20%', float: 'right'}}>
+                    <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} className={theme.selectWrapper}>
+                        <DropdownToggle caret>
+                            { this.state.currentCategory || "Categories" }
+                        </DropdownToggle>
+                        <DropdownMenu>
+                            { this.state.currentCategory &&
+                            <DropdownItem
+                                onClick={() => this.onCategorySelected(null)}
+                                key={0}>
+                                { "All" }
+                            </DropdownItem> }
+                            { categories.map((category, i) => (
+                                <DropdownItem
+                                    onClick={() => this.onCategorySelected(category)}
+                                    key={i+1}>
+                                    { category }
+                                </DropdownItem>))}
+                        </DropdownMenu>
+                    </Dropdown>
                     <SelectedIDs
                         ids={listOfIds}
                         removeId={removeIdFromList}
